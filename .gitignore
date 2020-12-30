@@ -1,4 +1,5 @@
-
+.DS_Store
+model_weights_saved.hdf5
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
