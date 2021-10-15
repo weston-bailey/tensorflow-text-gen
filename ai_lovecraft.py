@@ -6,11 +6,11 @@ ModelCheckpoint = tf.keras.callbacks.ModelCheckpoint
 EPOCHS = 0
 
 data_set = Data_Set(
-  file_path='./texts/websters.txt',
+  file_path='./texts/lovecraft_complete.txt',
   verbose=True  
 )
 
-file_name = "./models/websters_model.hdf5"
+file_name = "./models/lovecraft_model.hdf5"
 
 model = build_model(data_set, file_name=file_name, verbose=True)
 
@@ -27,23 +27,6 @@ temperature = 0.8
 num_generate = 500
 generated_text = ' '
 num_mores = 1
-
-# class Command_Line_Interface:
-#   def __init__(
-#     self,
-#     model,
-#     data_set,
-#     title: str,
-#     temperature: float = 0.8,
-#     num_generate: int = 500,
-#     generated_text: str = ' '
-#     ):
-#     self.title = title
-#     self.tempurature = temperature
-#     self.num_generate = num_generate
-#     self.generated_text = generate_text
-#     self.num_mores = 1
-
 
 def execute_command(str):
   global temperature
@@ -81,11 +64,11 @@ def execute_command(str):
 def input_text():
   global generated_text
   global num_mores
-  welcome_string = '\n└[∵┌]**********└[ ∵ ]┘**********[┐∵]┘\n\nWELCOME TO THE AI DICTIONARY\n'
+  welcome_string = '\n└[∵┌]**********└[ ∵ ]┘**********[┐∵]┘\n\nWELCOME TO THE AI LOVECRAFTIAN GENERATOR\n'
   variable_string = f'\n(｡◕‿◕｡)\nmy prediction tempurature is: {temperature}\nI will generate {num_generate} characters per prediction\n'
   command_strings = '\ncommands:\n\\t to change temp\n\\n to change number of characters\n\\m for more text\n\\q to quit\n'
   end_string = '\n└[∵┌]**********└[ ∵ ]┘**********[┐∵]┘\n'
-  prompt_string = '\nenter a word and I will use my neural nets to give you a definition\n>'
+  prompt_string = '\nenter the title of a long lost lovecraftian horror and I will use my neural nets to find it for you\n>'
   input_prediciton = input(welcome_string + variable_string + command_strings + end_string + prompt_string)
   # print('└[∵┌]**********└[ ∵ ]┘**********[┐∵]┘\n')
 
@@ -93,7 +76,7 @@ def input_text():
     execute_command(input_prediciton)
   else:
     num_mores = 1
-    input_prediciton = input_prediciton.upper() + '\r\n'
+    input_prediciton = input_prediciton.upper() + '\n'
     # print(input_prediciton)
     print(f'\n(｡◕‿◕｡)\none moment please...\n')
     generated_text = generate_text(build_model, data_set, file_name=file_name, start_string=input_prediciton, temperature=temperature, num_generate=num_generate)

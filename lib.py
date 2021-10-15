@@ -43,6 +43,7 @@ class Data_Set:
     self.buffer_size = buffer_size
     # data set to train on
     self.sequence_length = sequence_length
+    self.unshuffled_data = None
     self.training_data = None
     self.make_tensor_data()
 
@@ -68,7 +69,7 @@ class Data_Set:
   
   # shuffles the training dataset
   def shuffle(self):
-    self.training_data = self.training_data.shuffle(self.buffer_size).batch(self.batch_size, drop_remainder=True)
+    self.training_data = self.training_data.shuffle(self.buffer_size)
 
 # ### ### ### ### ### ### ### ### ### ### ##
 # models
@@ -79,43 +80,7 @@ def loss(labels, logits):
 
 def build_model(
     data_set,
-    file_name: str = "model_weights_saved.hdf5",
-    embedding_dim: int = 256,
-    rnn_units: int = 1024,
-    batch_size: int = 64,
-    verbose: bool = False
-  ):
-  model = Sequential()
-  model.add(Embedding(data_set.unique_char_count, embedding_dim, batch_input_shape=[batch_size, None]))
-  model.add(LSTM(rnn_units, return_sequences=True))
-  model.add(Dense(data_set.unique_char_count))
-  if os.path.exists(file_name): model.load_weights(file_name)
-  model.compile(optimizer='adam', loss=loss)
-  if verbose: model.summary()
-
-  return model
-
-def build_model_2(
-    vocab_size, 
-    file_name: str = "model_weights_saved.hdf5",
-    embedding_dim: int = 256,
-    rnn_units: int = 1024,
-    batch_size: int = 64,
-    verbose: bool = False
-  ):
-  model = Sequential()
-  model.add(Embedding(vocab_size, embedding_dim, batch_input_shape=[batch_size, None]))
-  model.add(GRU(rnn_units, return_sequences=True, stateful=True, recurrent_initializer='glorot_uniform'))
-  model.add(Dense(vocab_size))
-  if os.path.exists(file_name): model.load_weights(file_name)
-  model.compile(optimizer='adam', loss=loss)
-  if verbose: model.summary()
-
-  return model
-
-def build_model_3(
-    data_set,
-    file_name: str = "model_weights_saved.hdf5",
+    file_name: str = "./model_weights_saved.hdf5",
     embedding_dim: int = 256,
     rnn_units: int = 1024,
     batch_size: int = 64,
@@ -138,12 +103,12 @@ def build_model_3(
 # prediction
 # ### ### ### ### ### ### ### ### ### ### ##
 
-def generate_text(build_model_function, data_set, start_string, file_name: str = "model_weights_saved.hdf5"):
-  predict_model = build_model_function(len(data_set.chars), file_name=file_name, batch_size=1)
+def generate_text(build_model_function, data_set, start_string, file_name: str = "model_weights_saved.hdf5", temperature=1.0, num_generate=1000):
+  predict_model = build_model_function(data_set, file_name=file_name, batch_size=1)
   # Evaluation step (generating text using the learned model)
 
   # Number of characters to generate
-  num_generate = 1000
+  # num_generate = 1000
 
   # Converting our start string to numbers (vectorizing)
   input_eval = [data_set.char_to_int[s] for s in start_string]
@@ -155,7 +120,7 @@ def generate_text(build_model_function, data_set, start_string, file_name: str =
   # Low temperature results in more predictable text.
   # Higher temperature results in more surprising text.
   # Experiment to find the best setting.
-  temperature = 1.0
+  # temperature = 1.0
 
   # Here batch size == 1
   predict_model.reset_states()
@@ -173,5 +138,5 @@ def generate_text(build_model_function, data_set, start_string, file_name: str =
     input_eval = tf.expand_dims([predicted_id], 0)
 
     text_generated.append(data_set.int_to_char[predicted_id])
-
+    
   return (start_string + ''.join(text_generated))
