@@ -6,7 +6,7 @@ text generation with tensorflow and RNN LSTM GRU neural nets. There are a few ex
 
 `ai_dictionary.py` and `ai_lovecraft.py` are cli text generation programs.
 
-## Gettign Started
+## Getting Started
 
 
 * fork and clone this repo
