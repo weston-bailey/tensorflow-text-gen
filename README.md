@@ -1,10 +1,10 @@
 # Machine Learnng Text Generation
 
-text generation with tensorflow and RNN LSTM GRU neural nets. There are a few examples including an ai dictionary and ai lovecraft generator.
+This is an implementation of text generation with tensorflow using `RNN`, `LSTM`, and `GRU` neural nets. There are a couple including an 'ai dictionary' word definition generator and an 'ai lovecraft' lovecraftian horror generator.
 
-`lib.py` is one big file to make it easy to copy into a collab notebook, it and be use to trian a model on a text.
+`lib.py` is one big file to make it easy to copy into a collab notebook, it can be used to trian a model on an input text dataset.
 
-`ai_dictionary.py` and `ai_lovecraft.py` are cli text generation programs.
+`ai_dictionary.py` and `ai_lovecraft.py` are CLI text generation programs, each trained on [Webster's Unabridged Dictionary](https://www.gutenberg.org/cache/epub/662/pg662.txt) and [H.P. Lovecraft's Corpus](https://github.com/vilmibm/lovecraftcorpus) respectively.
 
 ## Getting Started
 
