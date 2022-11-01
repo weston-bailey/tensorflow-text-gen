@@ -9,10 +9,10 @@ text generation with tensorflow and RNN LSTM GRU neural nets. There are a few ex
 ## Getting Started
 
 * fork and clone this repo
-* this project requires a virtual enviroment so run `pip install virtualenv` if you don't have the virtualenv package
+* this project requires a virtual enviroment, and you can run `pip3 install virtualenv` if you don't have the virtualenv package
 * cd into the repo directory and run `virtualEnv venv` to create the virtual enviroment
 * run `source venv/bin/activate` to start the virtual enviroment
-* run `pip install -r requirements.txt` to install the required packages
+* run `pip3 install -r requirements.txt` to install the required packages
 * due to github [file size limits](https://stackoverflow.com/questions/38768454/repository-size-limits-for-github-com), you will have to download the trained models from [this google drive](https://drive.google.com/drive/folders/1-TIM5BITbxSIGJ71q7Ai4nhJ2UqZeWS6?usp=sharing) and unzip them in the `models` folder
   
 ```
@@ -36,7 +36,7 @@ The texts gor training are stored in the `texts` directory and were retrived fro
 
 Additional models can be trained by using `lib.py`
 
-### project ideas: 
+### further project ideas: 
 
 - themed lorem ipsum rest api that generates the text on request.
 
