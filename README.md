@@ -32,7 +32,7 @@ the file structure should look like this:
 
 ![lovecraft](./img/lovecraft.png)
 
-The texts gor training are stored in the `texts` directory and were retrived from [Project Gutenberg](https://www.gutenberg.org/)
+The texts used for training are stored in the `texts` directory and were retrived from [Project Gutenberg](https://www.gutenberg.org/)
 
 Additional models can be trained by using `lib.py`
 
